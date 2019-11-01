@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class administrativo_ListaAtivos3 : System.Web.UI.Page
+{
+    //Terceira tentativa de ligar para o paciente
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        BindGrid();
+    }
+    private void BindGrid()
+    {
+        int _ativo = 1; // já foi feito ativo desta consulta, ela não aparece na primeira listagem (1ª tentativa)
+        int _tentativaLigacao = 2; // consultas 2ª tentativa
+
+        int _quantidadeConsultas = AtivoDAO.QuantidadeConsultasRealizarAtivo(_ativo, _tentativaLigacao);
+
+        if (_quantidadeConsultas != 0)
+        {
+            string _realizadas = "N";
+
+            GridView1.DataSource = AtivoDAO.ListaTentativaContato(_tentativaLigacao, _realizadas);
+            GridView1.DataBind();
+        }
+        lbQtdConsultas.Text = _quantidadeConsultas + " Consultas a Realizar a Ativo";
+    }
+
+    protected void grdMain_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        GridView1.PageIndex = e.NewPageIndex;
+        BindGrid();
+    }
+
+    protected void grdMain_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        int index;
+        if (e.CommandName.Equals("editRecord"))
+        {
+            index = Convert.ToInt32(e.CommandArgument);
+
+            int _prontuario = Convert.ToInt32(GridView1.DataKeys[index].Value.ToString());
+            Response.Redirect("~/administrativo/DetalhesPacienteTentativa3.aspx?prontuario=" + _prontuario);
+        }
+    }
+
+}
