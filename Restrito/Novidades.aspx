@@ -30,6 +30,37 @@
             <div class="row">
                 <div class="col-md-12">
                 
+                      <div class="x_panel">
+                        <div class="x_title">
+                            <h3>
+                                Em 01/11/2019</h3>
+                            <div class="clearfix">
+                            </div>
+                        </div>
+                        <div class="x_content">
+                            <blockquote>
+                                <p>
+                                    <i class="fa fa-check green"></i> Inclusão das colunas Email e Bloqueado na lista de usuários online. Disponível em Administração > Usuários Inline.
+                                </p>
+                                <p>
+                                    <i class="fa fa-check green"></i>Inclusão gráfico line com dados das ligações pela data de Ontem. Disponível em Relatórios. 
+                                </p>
+                                <p>
+                                    <i class="fa fa-check green"></i>Inclusão gráfico line com dados das ligações nos Últimos 7 Dias. Disponível em Relatórios. 
+                                </p>
+                                <p>
+                                    <i class="fa fa-check green"></i>Inclusão gráfico line com dados das ligações Neste Mês. Disponível em Relatórios. 
+                                </p>
+                                <p>
+                                    <i class="fa fa-check green"></i>Inclusão gráfico line com dados das ligações nos Últimos 30 dias. Disponível em Relatórios. 
+                                </p>
+                               
+                            </blockquote>
+                        </div>
+                    </div>
+                
+                
+                
                      <div class="x_panel">
                         <div class="x_title">
                             <h3>
