@@ -29,6 +29,30 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
+                        
+                       <div class="x_panel">
+                        <div class="x_title">
+                            <h3>
+                                Em 04/11/2019</h3>
+                            <div class="clearfix">
+                            </div>
+                        </div>
+                        <div class="x_content">
+                            <blockquote>
+                                <p>
+                                    <i class="fa fa-check green"></i> Correção da ordem de data no gráfico do 'Últimos 7 dias'. Disponível em Relatórios.
+                                </p>
+                                <p>
+                                    <i class="fa fa-check green"></i> Correção dos dias carregados e quantidade de ligações realizadas em 'Este Mês'. Disponível em Relatórios.
+                                </p>
+                                <p>
+                                    <i class="fa fa-check green"></i> Inclusão página 'Desbloquear Usuário'. Disponível em Administração.
+                                </p>
+                            </blockquote>
+                        </div>
+                    </div>
+                
+                
                 
                       <div class="x_panel">
                         <div class="x_title">
@@ -40,7 +64,7 @@
                         <div class="x_content">
                             <blockquote>
                                 <p>
-                                    <i class="fa fa-check green"></i> Inclusão das colunas Email e Bloqueado na lista de usuários online. Disponível em Administração > Usuários Inline.
+                                    <i class="fa fa-check green"></i> Inclusão das colunas Email e Bloqueado na lista de usuários online. Disponível em Administração > Usuários Online.
                                 </p>
                                 <p>
                                     <i class="fa fa-check green"></i>Inclusão gráfico line com dados das ligações pela data de Ontem. Disponível em Relatórios. 

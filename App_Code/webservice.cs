@@ -217,8 +217,8 @@ public class webservice : System.Web.Services.WebService
             cmm.CommandText = "SELECT DATEPART(DAY, data_ligacao) AS [Day], COALESCE(COUNT(id_consulta), 0) AS [Total Calls] " +
                             " FROM [hspmCall].[dbo].[ativo_ligacao] " +
                             " WHERE data_ligacao between (CONVERT(datetime, GETDATE() - 6, 103)) AND (CONVERT(datetime, GETDATE(), 103)) " +
-                            " GROUP BY DATEPART(DAY, data_ligacao) " +
-                            " ORDER BY DATEPART(DAY, data_ligacao)";
+                            " GROUP BY DATEPART(DAY, data_ligacao), DATEPART(MONTH, data_ligacao) " +
+                            " ORDER BY DATEPART(MONTH, data_ligacao) asc ";
             try
             {
                 cnn.Open();
@@ -282,7 +282,7 @@ public class webservice : System.Web.Services.WebService
 
             cmm.CommandText = "SELECT DATEPART(DAY, data_ligacao) AS [Day], COALESCE(COUNT(id_consulta), 0) AS [Total Calls] " +
                             " FROM [hspmCall].[dbo].[ativo_ligacao] " +
-                            " WHERE data_ligacao between (CONVERT(datetime, (DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)) - 30, 103)) AND (CONVERT(datetime, GETDATE(), 103)) " +
+                            " WHERE data_ligacao between (CONVERT(datetime, (DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)) - 0, 103)) AND (CONVERT(datetime, GETDATE(), 103)) " +
                             " GROUP BY DATEPART(DAY, data_ligacao) " +
                             " ORDER BY DATEPART(DAY, data_ligacao)";
             try

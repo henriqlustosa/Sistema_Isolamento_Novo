@@ -16,7 +16,6 @@ public partial class publico_UsuariosOnLine : System.Web.UI.Page
     
     protected void Page_Load(object sender, EventArgs e)
     {
-        //var users = Membership.GetAllUsers().Cast<MembershipUser>().OrderByDescending(user => user.IsOnline);
         var users = Membership.GetAllUsers();
         rpt.DataSource = users;
         rpt.DataBind();

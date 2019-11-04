@@ -88,7 +88,8 @@ public partial class Relatorios_RelatorioAtivosRealizados : System.Web.UI.Page
             {
                 cnn.Open();
                 cmm.CommandText = "SELECT count(*) as Ativos  FROM [hspmCall].[dbo].[vw_relatorio_ativos] " +
-                    " WHERE data_ligacao between (CONVERT(datetime, (DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)) - 30, 103)) AND (CONVERT(datetime, GETDATE(), 103))";
+                    " WHERE data_ligacao between (CONVERT(datetime, (DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)) - 0, 103)) AND (CONVERT(datetime, GETDATE(), 103))";
+                    //" WHERE data_ligacao between (CONVERT(datetime, (DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)) - 30, 103)) AND (CONVERT(datetime, GETDATE(), 103))";
                 SqlDataReader dr1 = cmm.ExecuteReader();
                 if (dr1.Read())
                 {
@@ -246,7 +247,7 @@ public partial class Relatorios_RelatorioAtivosRealizados : System.Web.UI.Page
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = cnn;
-                    command.CommandText = "SELECT * FROM [vw_relatorio_ativos] WHERE data_ligacao between (CONVERT(datetime, (DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)) - 30, 103)) AND (CONVERT(datetime, GETDATE(), 103))";
+                    command.CommandText = "SELECT * FROM [vw_relatorio_ativos] WHERE data_ligacao between (CONVERT(datetime, (DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)) - 0, 103)) AND (CONVERT(datetime, GETDATE(), 103))";
 
                     using (SqlDataAdapter adapter = new SqlDataAdapter())
                     {
