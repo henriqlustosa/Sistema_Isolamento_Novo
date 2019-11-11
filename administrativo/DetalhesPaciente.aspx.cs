@@ -104,17 +104,19 @@ public partial class administrativo_DetalhesPaciente : System.Web.UI.Page
 
     protected void btnGravar_Click(object sender, EventArgs e)
     {
-        int _prontuario = Convert.ToInt32(lbProntuario.Text);
+        Ativo_Ligacao ativo = new Ativo_Ligacao();
+
+        ativo.Prontuario = Convert.ToInt32(lbProntuario.Text);
+        ativo.Observacao = txbObservacao.Text.ToUpper();
+        ativo.Usuario_Contato = System.Web.HttpContext.Current.User.Identity.Name;
+        ativo.Id_Consulta = Convert.ToInt32(txbID.Text);
         int _status = Convert.ToInt32(ddlStatus.SelectedValue);
-        string _observacao = txbObservacao.Text.ToUpper();
-        string _usuario = System.Web.HttpContext.Current.User.Identity.Name;
-        int _id_consulta = Convert.ToInt32(txbID.Text);
 
         _id_ativo = 0;
 
-        _tenta += 1;
+        _tenta = 1;
 
-        string mensagem = AtivoDAO.GravaStatusAtivo(_status, _observacao, _usuario, _id_consulta, _tenta, _id_ativo);
+        string mensagem = AtivoDAO.GravaStatusAtivo(_status, ativo.Observacao, ativo.Usuario_Contato, ativo.Id_Consulta, _tenta, _id_ativo);
 
         System.Text.StringBuilder sb = new System.Text.StringBuilder();
         sb.Append("$('.modal-backdrop').remove();");

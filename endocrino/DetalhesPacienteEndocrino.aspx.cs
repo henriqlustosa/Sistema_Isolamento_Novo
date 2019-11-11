@@ -104,7 +104,7 @@ public partial class endocrino_DetalhesPacienteEndocrino : System.Web.UI.Page
 
         _id_ativo = 0;
 
-        _tenta += 1;
+        _tenta = 1;
 
         string mensagem = AtivoDAO.GravaStatusAtivo(_status, _observacao, _usuario, _id_consulta, _tenta, _id_ativo);
 

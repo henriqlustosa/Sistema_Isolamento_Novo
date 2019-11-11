@@ -183,7 +183,7 @@ public class webservice : System.Web.Services.WebService
         List<Datasets> _dataSet = new List<Datasets>();
         _dataSet.Add(new Datasets()
         {
-            label = "Ativos do Ontem",
+            label = "Ativos de Ontem",
             data = total.ToArray(),
             backgroundColor = new string[] { "rgba(38, 185, 154, 0.31)" },
             borderColor = new string[] { "rgba(38, 185, 154, 0.7)" },

@@ -27,8 +27,7 @@ public partial class administrativo_DetalhesPacienteTentativa2 : System.Web.UI.P
             tenta = tentativa;
 
             lbProntuario.Text = prontuario.ToString();
-
-
+            
             PacienteMailling paciente = new PacienteMailling();
             paciente = PacienteMailingDAO.getDadosPaciente(prontuario);
 
@@ -40,7 +39,6 @@ public partial class administrativo_DetalhesPacienteTentativa2 : System.Web.UI.P
             txbTelefone4.Text = paciente.Telefone4;
 
             BindGrind1Tentativas(prontuario, tentativa);
-
         }
     }
 
@@ -59,14 +57,12 @@ public partial class administrativo_DetalhesPacienteTentativa2 : System.Web.UI.P
         {
             index = Convert.ToInt32(e.CommandArgument);
             id_ativo = Convert.ToInt32(GridView1.DataKeys[index].Value.ToString());
-
-
+            
             string _realizada = "N";
             var clickedRecord = from consulta in AtivoDAO.ListaTentativaContatoPaciente(Convert.ToInt32(lbProntuario.Text), 1, _realizada)
                                 where consulta.Id_Ativo == id_ativo
                                 select consulta;
-
-          
+                      
             foreach (var d in clickedRecord.ToList())
             {
                 txbID.Text = d.Id_Ativo.ToString();
@@ -95,7 +91,6 @@ public partial class administrativo_DetalhesPacienteTentativa2 : System.Web.UI.P
         ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + mensagem + "');", true);
     }
     
-
     protected void btnGravar_Click(object sender, EventArgs e)
     {
         int _prontuario = Convert.ToInt32(lbProntuario.Text);
@@ -108,7 +103,6 @@ public partial class administrativo_DetalhesPacienteTentativa2 : System.Web.UI.P
         int tentativa = 2;
         
         // update realizado
-       
         string mensagem = AtivoDAO.GravaStatusAtivo(_status, _observacao, _usuario, _id_consulta, tentativa, id_ativo);
 
         System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -120,8 +114,7 @@ public partial class administrativo_DetalhesPacienteTentativa2 : System.Web.UI.P
         ClearInputs(Page.Controls);// limpa os textbox
         Response.Redirect("~/administrativo/ListaAtivos2.aspx");
     }
-
-
+    
     void ClearInputs(ControlCollection ctrls)
     {
         foreach (Control ctrl in ctrls)
