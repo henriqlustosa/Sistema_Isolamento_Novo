@@ -10,6 +10,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using System.Text.RegularExpressions;
 
 public partial class administrativo_DetalhesPacienteTentativa3 : System.Web.UI.Page
 {
@@ -85,10 +86,10 @@ public partial class administrativo_DetalhesPacienteTentativa3 : System.Web.UI.P
         PacienteMailling paciente = new PacienteMailling();
 
         paciente.Prontuario = Convert.ToInt32(lbProntuario.Text);
-        paciente.Telefone1 = txbTelefone1.Text;
-        paciente.Telefone2 = txbTelefone2.Text;
-        paciente.Telefone3 = txbTelefone3.Text;
-        paciente.Telefone4 = txbTelefone4.Text;
+        paciente.Telefone1 = Regex.Replace(txbTelefone1.Text, "[^0-9]", "");
+        paciente.Telefone2 = Regex.Replace(txbTelefone2.Text, "[^0-9]", "");
+        paciente.Telefone3 = Regex.Replace(txbTelefone3.Text, "[^0-9]", "");
+        paciente.Telefone4 = Regex.Replace(txbTelefone4.Text, "[^0-9]", "");
 
         string mensagem = PacienteMailingDAO.AtualizaTelefones(paciente.Prontuario, paciente.Telefone1, paciente.Telefone2, paciente.Telefone3, paciente.Telefone4);
         ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + mensagem + "');", true);
@@ -96,18 +97,21 @@ public partial class administrativo_DetalhesPacienteTentativa3 : System.Web.UI.P
 
     protected void btnGravar_Click(object sender, EventArgs e)
     {
-        int _prontuario = Convert.ToInt32(lbProntuario.Text);
+        Ativo_Ligacao ativo = new Ativo_Ligacao();
+
+        ativo.Prontuario = Convert.ToInt32(lbProntuario.Text);
+        ativo.Observacao = txbObservacao.Text.ToUpper();
+        ativo.Usuario_Contato = System.Web.HttpContext.Current.User.Identity.Name;
+        ativo.Id_Consulta = Convert.ToInt32(txbID.Text);
         int _status = Convert.ToInt32(ddlStatus.SelectedValue);
-        string _observacao = txbObservacao.Text.ToUpper();
-        string _usuario = System.Web.HttpContext.Current.User.Identity.Name;
-        int _id_consulta = Convert.ToInt32(txbID.Text);
+
         id_ativo = Convert.ToInt32(txbID.Text);
 
         int tentativa = 3;
 
         // update realizado
 
-        string mensagem = AtivoDAO.GravaStatusAtivo(_status, _observacao, _usuario, _id_consulta, tentativa, id_ativo);
+        string mensagem = AtivoDAO.GravaStatusAtivo(_status, ativo.Observacao, ativo.Usuario_Contato, ativo.Id_Consulta, tentativa, id_ativo);
 
         System.Text.StringBuilder sb = new System.Text.StringBuilder();
         sb.Append("$('.modal-backdrop').remove();");

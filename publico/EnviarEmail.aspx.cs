@@ -34,7 +34,7 @@ public partial class publico_EnviarEmail : System.Web.UI.Page
         mail.From = new MailAddress("de quem", "ENVIADOR");
         mail.To.Add(new MailAddress("paraquem", "RECEBEDOR"));
         mail.Subject = "Contato";
-        mail.Body = " Mensagem do site:<br/> Nome:  " + senderName.Text + "<br/> Email : " + senderEmail.Text + " <br/> Mensagem : " + message.Text;
+        //mail.Body = " Mensagem do site:<br/> Nome:  " + senderName.Text + "<br/> Email : " + senderEmail.Text + " <br/> Mensagem : " + message.Text;
         mail.IsBodyHtml = true;
         mail.Priority = MailPriority.High;
         try
