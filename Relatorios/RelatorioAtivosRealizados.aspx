@@ -17,12 +17,13 @@
     <div class="content">
         <div class="row tile_count">
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                <span class="count_top"><i class="fa fa-user"></i>Total de Ativo de Ligações</span>
+                <span class="count_top"><i class="fa fa-phone"></i> Total de Ativo de Ligações</span>
                 <div class="count">
                     <div class="count">
                         <asp:Label ID="lbTotal" runat="server" Text="" class="count green"></asp:Label>
                     </div>
                 </div>
+                <span class="count_bottom">Desde 08/10/2019</span>
             </div>
         </div>
         <asp:Button ID="btnGerarArquivo" runat="server" Text="Gerar arquivo total" class="btn btn-primary"

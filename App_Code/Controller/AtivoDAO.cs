@@ -41,6 +41,7 @@ public class AtivoDAO
                                 " AND l.status = s.id_status " +
                                 " AND s.tenta = 'S' " +
                                 " AND c.equipe NOT LIKE 'ENDOCRINO%'" +
+                                " AND datediff(day, GETDATE() , dt_consulta ) > 0 "+
                                 " AND l.realizado = 'N'";
         }
         else
@@ -236,6 +237,11 @@ public class AtivoDAO
                     mt.Dispose();
                     cnn.Close();
                     mensagem = "Cadastro realizado com sucesso!";
+
+                if(_status == 2 || _status == 3 || _status == 4) // 2 - cancelar consulta, 3 - cancelar e remarcar, 4 - falecido
+                {
+                    consultasCanceladas(_id_consulta);
+                }
             }
             catch (Exception ex)
             {
@@ -250,6 +256,44 @@ public class AtivoDAO
             }
         }
         return mensagem;
+    }
+
+
+    protected static void consultasCanceladas(int _id_consulta)
+    {
+
+        using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
+        {
+            SqlCommand cmm = new SqlCommand();
+            cmm.Connection = cnn;
+            cnn.Open();
+            SqlTransaction mt = cnn.BeginTransaction();
+            cmm.Transaction = mt;
+            try
+            {
+                cmm.CommandText = "Insert into consultas_cancelar (id_consulta)" +
+                    "values (@id_consulta)";
+
+                cmm.Parameters.Add("@id_consulta", SqlDbType.Int).Value = _id_consulta;
+                cmm.ExecuteNonQuery();
+                mt.Commit();
+                mt.Dispose();
+                cnn.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                try
+                {
+                    mt.Rollback();
+                }
+                catch (Exception ex1)
+                {
+                    Console.WriteLine(ex1.Message);
+                }
+            }
+        }
+
     }
 
     public static List<Ativo_Ligacao> ListaTentativaContato(int _tentativaLigacao, string _realizada)
@@ -482,6 +526,7 @@ public class AtivoDAO
                                 " AND l.status = s.id_status " +
                                 "AND s.tenta = 'S' " +
                                 " AND c.equipe LIKE 'ENDOCRINO%' " +
+                                " AND datediff(day, GETDATE() , dt_consulta ) > 0 " +
                                 "AND l.realizado = 'N'";
         }
         else

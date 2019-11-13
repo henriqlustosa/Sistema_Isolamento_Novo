@@ -29,8 +29,47 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
+                      <div class="x_panel">
+                        <div class="x_title">
+                            <h3>
+                                Em 13/11/2019</h3>
+                            <div class="clearfix">
+                            </div>
+                        </div>
+                        <div class="x_content">
+                            <blockquote>
+                                <p>
+                                    <i class="fa fa-check green"></i> Correção do número da contagem de consultas a realizar ativos. Anteriormente contava todos que estavam pendentes para 2ª e 3ª tentativas, agoraconta apenas as consultas da data atual para posterior. Disponível em consultas > Ativos.
+                                </p>
+                               
+                            </blockquote>
+                        </div>
+                    </div>    
                         
-                       <div class="x_panel">
+                        
+                        
+                     <div class="x_panel">
+                        <div class="x_title">
+                            <h3>
+                                Em 11/11/2019</h3>
+                            <div class="clearfix">
+                            </div>
+                        </div>
+                        <div class="x_content">
+                            <blockquote>
+                                <p>
+                                    <i class="fa fa-check green"></i> Atualização do cadastro de telefones. Será gravado no Banco de dados apenas os números. Disponível Detalhes da Consulta.
+                                </p>
+                                <p>
+                                    <i class="fa fa-check green"></i> Inclusão de instância de objeto no lugar de variáveis internas para o cadastro de detalhes da consulta.
+                                </p>
+                            </blockquote>
+                        </div>
+                    </div>    
+                        
+                        
+                        
+                   <div class="x_panel">
                         <div class="x_title">
                             <h3>
                                 Em 04/11/2019</h3>
