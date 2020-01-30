@@ -15,11 +15,9 @@ using System.Xml.Linq;
 /// </summary>
 public class ConsultasRemarcar : Ativo_Ligacao
 {
-	public ConsultasRemarcar()
-	{
-		//
-		// TODO: Add constructor logic here
-		//
-	}
+    public int id_cancela { get; set; }
+    public int Id_Informacao { get; set; }
+    public string DescricaoRemarcar { get; set; }
+    public string Stat { get; set; }
     
 }

@@ -52,5 +52,4 @@ public partial class administrativo_ListaAtivos3 : System.Web.UI.Page
             Response.Redirect("~/administrativo/DetalhesPacienteTentativa3.aspx?prontuario=" + _prontuario);
         }
     }
-
 }

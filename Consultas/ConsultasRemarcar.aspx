@@ -21,7 +21,7 @@
                         </asp:DropDownList>
                         <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                             ConnectionString="<%$ ConnectionStrings:gtaConnectionString %>" 
-                            SelectCommand="SELECT [id_status], [status] FROM [status_consulta] WHERE [id_status] IN (2,3,4) ">
+                            SelectCommand="SELECT [id_status], [status] FROM [status_consulta] WHERE [id_status] IN (2,3,4,7,8) ">
                         </asp:SqlDataSource>
                         
                     </div>
@@ -31,12 +31,12 @@
                 </div>
             </div>
            
-           <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False"
-                 DataKeyNames="Prontuario" 
+           <asp:GridView ID="GridView1" runat="server"  AutoGenerateColumns="False"
+                 DataKeyNames="Id_consulta" OnRowCommand="grdMain_RowCommand"
                 CellPadding="4" ForeColor="#333333" GridLines="None" Width="100%">
                 <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
                 <Columns>
-                    <asp:BoundField DataField="Id_consulta" HeaderText="ID" SortExpression="Id_consulta"
+                    <asp:BoundField DataField="Id_consulta" HeaderText="ID CONSULTA" SortExpression="Id_consulta"
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
                     <asp:BoundField DataField="Nome" HeaderText="Paciente" SortExpression="Nome" ItemStyle-CssClass="hidden-md"
                         HeaderStyle-CssClass="hidden-md" />
@@ -50,6 +50,10 @@
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
                      <asp:BoundField DataField="Data_Contato" HeaderText="Data da ligacao" SortExpression="Data_Contato"
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
+                     <asp:BoundField DataField="Status" HeaderText="Status da ligacao" SortExpression="Status"
+                        ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />   
+                        
+                        
                     <asp:BoundField DataField="Observacao" HeaderText="Observacao" SortExpression="Observacao"
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
                     

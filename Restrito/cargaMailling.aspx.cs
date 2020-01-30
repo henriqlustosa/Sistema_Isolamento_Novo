@@ -22,6 +22,7 @@ public partial class administracao_cargaMailling : System.Web.UI.Page
 
     protected void btnLerExcel_Click(object sender, EventArgs e)
     {
+        //Ativo paciente;
         if (fupArquivo.FileContent != null)
         {
 
@@ -41,6 +42,17 @@ public partial class administracao_cargaMailling : System.Web.UI.Page
 
                     foreach (DataRow DR in Dados.Rows)
                     {
+                        /// TODO: refatorar
+
+                        //paciente = new Ativo();
+
+                        //paciente.Nome = DR[1].ToString();
+                        //paciente.Dt_Consulta = Convert.ToDateTime(DR[2].ToString()).ToString("yyyy-MM-dd HH:mm:ss");
+                        //paciente.Prontuario = Convert.ToInt32(DR[1].ToString());
+                        //paciente.Grade = Convert.ToInt32(DR[3].ToString());
+                        
+
+
                         string nomePaciente = DR[0].ToString();
                         string prontuario = DR[1].ToString();
                         string dt_consulta = Convert.ToDateTime(DR[2].ToString()).ToString("yyyy-MM-dd HH:mm:ss");

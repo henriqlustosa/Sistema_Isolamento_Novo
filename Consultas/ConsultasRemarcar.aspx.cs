@@ -23,8 +23,27 @@ public partial class publico_ConsultasRemarcar : System.Web.UI.Page
     protected void btnListar_Click(object sender, EventArgs e)
     {
          int _stat = Convert.ToInt32(ddlStatus.SelectedValue.ToString());
-                
+      
+       
          GridView1.DataSource = ConsultasDAO.ListaConsultasCancelar(_stat);
          GridView1.DataBind();
+    }
+
+
+    protected void grdMain_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        int index;
+        
+        if (e.CommandName.Equals("editRecord"))
+        {
+            index = Convert.ToInt32(e.CommandArgument);
+           
+            int _id_consulta = Convert.ToInt32(GridView1.DataKeys[index].Value.ToString()); //id da consulta
+
+            GridViewRow row = GridView1.Rows[index];
+            string _status = row.Cells[7].Text;
+
+            Response.Redirect("~/Consultas/InformaCancelamento.aspx?idconsulta=" + _id_consulta + "&status=" + _status + "");
+        }
     }
 }

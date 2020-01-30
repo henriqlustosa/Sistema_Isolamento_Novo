@@ -24,11 +24,52 @@ public class AtivoDAO
 		//
 	}
 
+    public static Ativo_Ligacao getAtivo(int _id_consulta)
+    {
+        Ativo_Ligacao ativo = new Ativo_Ligacao();
+
+        using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
+        {
+            SqlCommand cmm = cnn.CreateCommand();
+            cmm.CommandText = "SELECT [id_consulta]" +
+                                  ",[status]" +
+                                  ",[observacao]" +
+                                  ",[data_ligacao]" +
+                                  ",[tentativa]" +
+                                  ",[usuario] " +
+                              "FROM [hspmCall].[dbo].[ativo_ligacao] " +
+                              "WHERE id_consulta = '" + _id_consulta + "'";
+
+            try
+            {
+                cnn.Open();
+
+                SqlDataReader dr1 = cmm.ExecuteReader();
+
+                if (dr1.Read())
+                {
+                    ativo.Id_Consulta = dr1.GetInt32(0);
+                    ativo.Status = Convert.ToString(dr1.GetInt32(1));
+                    ativo.Observacao = dr1.GetString(2);
+                    ativo.Data_Contato = dr1.GetDateTime(3);
+                    ativo.Tentativa = dr1.GetInt32(4);
+                    ativo.Usuario_Contato = dr1.GetString(5);
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+            }
+
+        }
+        return ativo;
+    }
+
+
     public static int QuantidadeConsultasRealizarAtivo(int _ativo, int _tentativa)
     {
         string SqlQuery = "";
         int QuantidadeConsultas = 0;
-
 
         if (_tentativa >= 1)
         {
@@ -49,8 +90,6 @@ public class AtivoDAO
             SqlQuery = "Select count(*) as quantidadeConsultas FROM consulta where ativo = 0 AND equipe NOT LIKE 'ENDOCRINO%'";
         }
 
-
-
         using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
         {
             SqlCommand cmm = cnn.CreateCommand();
@@ -58,8 +97,6 @@ public class AtivoDAO
             {
                 cnn.Open();
                 cmm.CommandText = SqlQuery;
-                
-                
                 
                 SqlDataReader dr1 = cmm.ExecuteReader();  
                 if (dr1.Read())
@@ -77,8 +114,6 @@ public class AtivoDAO
 
     public static List<Ativo> ListaConsultasPaciente(int _prontuario)
     {
-        // colocar regra para listar consultas do paciente com tentativas abaixo de 3 (terceira tentativa)
-
         var lista = new List<Ativo>();
         using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
         {
@@ -87,13 +122,12 @@ public class AtivoDAO
             cmm.CommandText = "SELECT id_consulta, prontuario, dt_consulta, grade, "+
                             "equipe, profissional, codigo_consulta "+
                             "FROM consulta "+
-                            "WHERE prontuario = " + _prontuario;
+                            "WHERE prontuario = " + _prontuario + 
+                            " AND  ativo = 0 ";
             try
             {
                 cnn.Open();
                 SqlDataReader dr1 = cmm.ExecuteReader();
-
-                //char[] ponto = { '.', ' ' };
                 while (dr1.Read())
                 {
                     Ativo consulta = new Ativo();
@@ -119,13 +153,9 @@ public class AtivoDAO
     // Não carrega a lista de consultas da Endócrino
     public static List<Ativo> ListaConsultas(int _ativoConsulta, string _statusConsulta, int _tentativaLigacao)
     {
-
         var lista = new List<Ativo>();
-
         using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
         {
-
-            //DataTable dt = new DataTable();
             SqlCommand cmm = cnn.CreateCommand();
 
             if (_ativoConsulta == 0)
@@ -153,13 +183,10 @@ public class AtivoDAO
                         " AND equipe NOT LIKE 'ENDOCRINO%'" +
                         " ORDER BY id_consulta;";
             }
-
             try
             {
                 cnn.Open();
                 SqlDataReader dr1 = cmm.ExecuteReader();
-
-                //char[] ponto = { '.', ' ' };
                 while (dr1.Read())
                 {
                     Ativo consulta = new Ativo();
@@ -188,13 +215,12 @@ public class AtivoDAO
             return lista;
         }
     }
-
    
     public static string GravaStatusAtivo(int _status, string _observacao, string _usuario, int _id_consulta, int _tentativa, int _id_ativo)
     {
         string mensagem = "";
         string _dtAtivo = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-        //bool _ativo = true;
+        string _realizado = "";
 
         using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
         {
@@ -214,8 +240,18 @@ public class AtivoDAO
                     cmm.ExecuteNonQuery();
                 }
 
-                cmm.CommandText = "Insert into ativo_ligacao (id_consulta, status, observacao, data_ligacao, tentativa,usuario)" +
-                    "values (@id_consulta,@status,@observacao,@data_ligacao, @tentativa,@usuario)";
+                //1 = CONFIRMADO, 2 = CANCELAR CONSULTA, 3 = CANCELAR E REMARCAR, 4 = FALECIDO, 10 = NÃO CONSTA CONSULTA, 11 = CONSULTA REMARCADA
+                // tentativa = 2 confirma realizado - solicitado não entrar na lista da 3ª tentativa
+                if (_status == 1 || _status == 2 || _status == 3 || _status == 4 || _status == 10 || _status == 11 || _tentativa == 2) 
+                {
+                    _realizado = "S";
+                }
+                else
+                {
+                    _realizado = "N";
+                }
+                cmm.CommandText = "Insert into ativo_ligacao (id_consulta, status, observacao, data_ligacao, tentativa,usuario, realizado)" +
+                       "values (@id_consulta,@status,@observacao,@data_ligacao, @tentativa, @usuario, @realizado)";
 
                 cmm.Parameters.Add("@id_consulta", SqlDbType.Int).Value = _id_consulta;
                 cmm.Parameters.Add("@status", SqlDbType.Int).Value = _status;
@@ -223,9 +259,11 @@ public class AtivoDAO
                 cmm.Parameters.Add("@data_ligacao", SqlDbType.VarChar).Value = _dtAtivo;
                 cmm.Parameters.Add("@tentativa", SqlDbType.Int).Value = _tentativa;
                 cmm.Parameters.Add("@usuario", SqlDbType.VarChar).Value = _usuario;
+                cmm.Parameters.Add("@realizado", SqlDbType.VarChar).Value = _realizado;
                 cmm.ExecuteNonQuery();
 
                 bool _ativo = true;
+                
                 cmm.CommandText = "UPDATE consulta" +
                  " SET ativo = @ativo" +
                  " where id_consulta = @id_con";
@@ -238,7 +276,8 @@ public class AtivoDAO
                     cnn.Close();
                     mensagem = "Cadastro realizado com sucesso!";
 
-                if(_status == 2 || _status == 3 || _status == 4) // 2 - cancelar consulta, 3 - cancelar e remarcar, 4 - falecido
+                // 2 - cancelar consulta, 3 - cancelar e remarcar, 4 - falecido, 7 - pessoa desconhecida, 8 - telefone inexistente
+                if(_status == 2 || _status == 3 || _status == 4 || _status == 7 || _status == 8) 
                 {
                     consultasCanceladas(_id_consulta);
                 }
@@ -258,10 +297,8 @@ public class AtivoDAO
         return mensagem;
     }
 
-
     protected static void consultasCanceladas(int _id_consulta)
     {
-
         using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
         {
             SqlCommand cmm = new SqlCommand();
@@ -293,7 +330,6 @@ public class AtivoDAO
                 }
             }
         }
-
     }
 
     public static List<Ativo_Ligacao> ListaTentativaContato(int _tentativaLigacao, string _realizada)
@@ -302,12 +338,10 @@ public class AtivoDAO
 
         using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
         {
-
-            //DataTable dt = new DataTable();
             SqlCommand cmm = cnn.CreateCommand();
 
-            cmm.CommandText = "SELECT a.[idativo] " +
-                                  ",a.[id_consulta] " +
+             cmm.CommandText = "SELECT a.[idativo] " +
+                                  ", a.[id_consulta] " +
                                   ",s.[status] " +
                                   ",a.[observacao] " +
                                   ",a.[data_ligacao] " +
@@ -331,13 +365,10 @@ public class AtivoDAO
                               " AND equipe NOT LIKE 'ENDOCRINO%'" +
                               " AND datediff(day, GETDATE() , dt_consulta ) > 0 " +
                               " ORDER BY id_consulta;";
-
             try
             {
                 cnn.Open();
                 SqlDataReader dr1 = cmm.ExecuteReader();
-
-                //char[] ponto = { '.', ' ' };
                 while (dr1.Read())
                 {
                     Ativo_Ligacao tentativa = new Ativo_Ligacao();
@@ -372,15 +403,12 @@ public class AtivoDAO
     public static List<Ativo_Ligacao> ListaTentativaContatoPaciente(int _prontuario, int _tentativaLigacao, string _realizada)
     {
         var lista = new List<Ativo_Ligacao>();
-
         using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
         {
-
-            //DataTable dt = new DataTable();
             SqlCommand cmm = cnn.CreateCommand();
-          
-                cmm.CommandText = "SELECT a.[idativo] "+
-                                      ",a.[id_consulta] "+
+
+            cmm.CommandText = "SELECT a.[idativo] " +
+                                      ", a.[id_consulta] "+
                                       ",s.[status] " +
                                       ",a.[observacao] "+
                                       ",a.[data_ligacao] "+
@@ -400,13 +428,10 @@ public class AtivoDAO
                                   "AND c.prontuario  = " + _prontuario +
                                   "AND s.[tenta] = 'S'" +
                                   "AND a.[realizado] = 'N'";
-            
             try
             {
                 cnn.Open();
                 SqlDataReader dr1 = cmm.ExecuteReader();
-
-                //char[] ponto = { '.', ' ' };
                 while (dr1.Read())
                 {
                     Ativo_Ligacao tentativa = new Ativo_Ligacao();
@@ -440,11 +465,8 @@ public class AtivoDAO
     public static List<Ativo> ListaConsultasEndocrino(int _ativoConsulta, string _statusConsulta, int _tentativaLigacao)
     {
         var lista = new List<Ativo>();
-
         using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
         {
-
-            //DataTable dt = new DataTable();
             SqlCommand cmm = cnn.CreateCommand();
 
             if (_ativoConsulta == 0)
@@ -456,7 +478,6 @@ public class AtivoDAO
                               " WHERE c.prontuario = p.prontuario AND ativo = 0 AND dt_consulta <= GETDATE() + 20 " +
                               " AND c.equipe LIKE 'ENDOCRINO%' " +
                               " ORDER BY id_consulta;";
-
             }
             else if (_ativoConsulta == 1 && _statusConsulta.Equals("S")) // lista as consultas tentativas
             {
@@ -478,8 +499,6 @@ public class AtivoDAO
             {
                 cnn.Open();
                 SqlDataReader dr1 = cmm.ExecuteReader();
-
-                //char[] ponto = { '.', ' ' };
                 while (dr1.Read())
                 {
                     Ativo consulta = new Ativo();
@@ -513,7 +532,6 @@ public class AtivoDAO
     {
         string SqlQuery = "";
         int QuantidadeConsultas = 0;
-
 
         if (_tentativa >= 1)
         {
@@ -562,11 +580,8 @@ public class AtivoDAO
     public static List<Ativo_Ligacao> ListaTentativaContatoEndocrino(int _tentativaLigacao, string _realizadas)
     {
         var lista = new List<Ativo_Ligacao>();
-
         using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
         {
-
-            //DataTable dt = new DataTable();
             SqlCommand cmm = cnn.CreateCommand();
 
             cmm.CommandText = "SELECT a.[idativo] " +
@@ -599,8 +614,6 @@ public class AtivoDAO
             {
                 cnn.Open();
                 SqlDataReader dr1 = cmm.ExecuteReader();
-
-                //char[] ponto = { '.', ' ' };
                 while (dr1.Read())
                 {
                     Ativo_Ligacao tentativa = new Ativo_Ligacao();

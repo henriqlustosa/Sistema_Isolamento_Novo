@@ -57,20 +57,21 @@ public partial class administrativo_DetalhesPacienteTentativa2 : System.Web.UI.P
         if (e.CommandName.Equals("editRecord"))
         {
             index = Convert.ToInt32(e.CommandArgument);
-            id_ativo = Convert.ToInt32(GridView1.DataKeys[index].Value.ToString());
+            int ID = Convert.ToInt32(GridView1.DataKeys[index].Value.ToString());
             
             string _realizada = "N";
             var clickedRecord = from consulta in AtivoDAO.ListaTentativaContatoPaciente(Convert.ToInt32(lbProntuario.Text), 1, _realizada)
-                                where consulta.Id_Ativo == id_ativo
+                                where consulta.Id_Consulta == ID
                                 select consulta;
                       
             foreach (var d in clickedRecord.ToList())
             {
-                txbID.Text = d.Id_Ativo.ToString();
+                txbID.Text = d.Id_Consulta.ToString();
                 txbdtConsulta.Text = d.Dt_Consulta.ToString();
                 txbEquipe.Text = d.Equipe;
                 txbProfissional.Text = d.Nome_Profissional;
                 txbCodConsulta.Text = d.Codigo_Consulta.ToString();
+                txbIDAtivo.Text = d.Id_Ativo.ToString();
             }
 
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none",
@@ -102,7 +103,7 @@ public partial class administrativo_DetalhesPacienteTentativa2 : System.Web.UI.P
         ativo.Id_Consulta = Convert.ToInt32(txbID.Text);
         int _status = Convert.ToInt32(ddlStatus.SelectedValue);
 
-        id_ativo = Convert.ToInt32(txbID.Text);
+        id_ativo = Convert.ToInt32(txbIDAtivo.Text);
 
         int tentativa = 2;
         
@@ -114,7 +115,6 @@ public partial class administrativo_DetalhesPacienteTentativa2 : System.Web.UI.P
         sb.Append("$(document.body).removeClass('modal-open');");
         ScriptManager.RegisterStartupScript(Page, this.Page.GetType(), "clientscript", sb.ToString(), true);
         
-        //BindGrind1Tentativas(_prontuario, 1);// recarrega o grid        
         ClearInputs(Page.Controls);// limpa os textbox
         Response.Redirect("~/administrativo/ListaAtivos2.aspx");
     }

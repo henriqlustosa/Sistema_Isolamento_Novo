@@ -29,6 +29,63 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
+                      
+                       <div class="x_panel">
+                        <div class="x_title">
+                            <h3>
+                                Em 20/01/2020</h3>
+                            <div class="clearfix">
+                            </div>
+                        </div>
+                        <div class="x_content">
+                            <blockquote>
+                                <p>
+                                    <i class="fa fa-check green"></i> Novo módulo Remarcar. As consultas que tiveram o ativo como Cancelar/Remarcar, Cancelar, Falecido, Telefone Inexistente e Pessoa desconhecida entram neste módulo para adição de nova informação. Em consultas > Remarcar. 
+                                </p>
+                               
+                            </blockquote>
+                        </div>
+                    </div>    
+                      
+                      
+                      
+                      
+                      
+                      
+                      <div class="x_panel">
+                        <div class="x_title">
+                            <h3>
+                                Em 26/11/2019</h3>
+                            <div class="clearfix">
+                            </div>
+                        </div>
+                        <div class="x_content">
+                            <blockquote>
+                                <p>
+                                    <i class="fa fa-check green"></i> Desativado Módulo de 3ª Tentativa de Ligações. Em consultas. 
+                                </p>
+                               
+                            </blockquote>
+                        </div>
+                    </div>    
+                      
+                      <div class="x_panel">
+                        <div class="x_title">
+                            <h3>
+                                Em 19/11/2019</h3>
+                            <div class="clearfix">
+                            </div>
+                        </div>
+                        <div class="x_content">
+                            <blockquote>
+                                <p>
+                                    <i class="fa fa-check green"></i> Adicionado a coluna do Id da Consulta nos relatórios gerados em .xls. Disponível em Relatórios.
+                                </p>
+                               
+                            </blockquote>
+                        </div>
+                    </div>    
+                      
                       <div class="x_panel">
                         <div class="x_title">
                             <h3>
@@ -45,7 +102,6 @@
                             </blockquote>
                         </div>
                     </div>    
-                        
                         
                         
                      <div class="x_panel">
@@ -66,8 +122,6 @@
                             </blockquote>
                         </div>
                     </div>    
-                        
-                        
                         
                    <div class="x_panel">
                         <div class="x_title">
@@ -90,8 +144,6 @@
                             </blockquote>
                         </div>
                     </div>
-                
-                
                 
                       <div class="x_panel">
                         <div class="x_title">
@@ -121,8 +173,6 @@
                             </blockquote>
                         </div>
                     </div>
-                
-                
                 
                      <div class="x_panel">
                         <div class="x_title">
@@ -158,7 +208,6 @@
                             </blockquote>
                         </div>
                     </div>
-                
                 
                     <div class="x_panel">
                         <div class="x_title">

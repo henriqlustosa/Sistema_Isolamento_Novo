@@ -6,7 +6,6 @@
 
     <script src='<%= ResolveUrl("https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js") %>'
         type="text/javascript"></script>
-
     
      <script src='<%= ResolveUrl("~/vendors/Chart/dist/Chart.min.js") %>' type="text/javascript"></script>
    <!-- 
@@ -224,7 +223,6 @@
            data: JSON.parse(GetData(JSON.stringify(n)))
        });
 
-
        function GetData(data) {
            var d = data;
 
@@ -245,7 +243,6 @@
            });
            return result;
        }
-
 
        var ctx = document.getElementById('canvas_ontem').getContext('2d');
        var d1 = new Date();
@@ -274,7 +271,6 @@
            return result;
        }
 
-
        var ctx = document.getElementById('canvas_sete').getContext('2d');
        var d1 = new Date();
        var n1 = d1.toLocaleDateString();
@@ -302,7 +298,6 @@
            return result;
        }
 
-
        var ctx = document.getElementById('canvas_este_mes').getContext('2d');
        var d1 = new Date();
        var n1 = d1.toLocaleDateString();
@@ -329,7 +324,5 @@
            });
            return result;
        }
-       
    </script>
-    
 </asp:Content>

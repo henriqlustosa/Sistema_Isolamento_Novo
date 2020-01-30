@@ -28,7 +28,6 @@ public partial class administrativo_DetalhesPaciente : System.Web.UI.Page
             int tentativa = Convert.ToInt32(Request.QueryString["tentativa"]);
             _tenta = tentativa;
 
-
             lbProntuario.Text = prontuario.ToString();
 
             paciente = PacienteMailingDAO.getDadosPaciente(prontuario);
@@ -60,8 +59,6 @@ public partial class administrativo_DetalhesPaciente : System.Web.UI.Page
 
     protected void grdMain_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-        
-
         int index;
 
         if (e.CommandName.Equals("editRecord"))
@@ -90,8 +87,6 @@ public partial class administrativo_DetalhesPaciente : System.Web.UI.Page
 
     protected void btnAtualizaTelefones_Click(object sender, EventArgs e)
     {
-       
-
         PacienteMailling paciente = new PacienteMailling();
 
         paciente.Prontuario = Convert.ToInt32(lbProntuario.Text);
@@ -126,7 +121,6 @@ public partial class administrativo_DetalhesPaciente : System.Web.UI.Page
         sb.Append("$(document.body).removeClass('modal-open');");
         ScriptManager.RegisterStartupScript(Page, this.Page.GetType(), "clientscript", sb.ToString(), true);
 
-        //BindGrind(_prontuario);// recarrega o grid
         ClearInputs(Page.Controls);// limpa os textbox
         Response.Redirect("~/administrativo/ListaAtivos.aspx");
     }
@@ -145,5 +139,4 @@ public partial class administrativo_DetalhesPaciente : System.Web.UI.Page
     {
         Response.Redirect("~/administrativo/ListaAtivos.aspx");
     }
-
 }

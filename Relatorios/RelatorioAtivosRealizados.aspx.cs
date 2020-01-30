@@ -127,7 +127,6 @@ public partial class Relatorios_RelatorioAtivosRealizados : System.Web.UI.Page
                 string error = ex.Message;
             }
         }
-
         return trinta;
     }
 
@@ -152,7 +151,6 @@ public partial class Relatorios_RelatorioAtivosRealizados : System.Web.UI.Page
                 string error = ex.Message;
             }
         }
-
         return ontem;
     }
 
@@ -178,7 +176,6 @@ public partial class Relatorios_RelatorioAtivosRealizados : System.Web.UI.Page
                 string error = ex.Message;
             }
         }
-
         return sete;
     }
 
@@ -203,7 +200,6 @@ public partial class Relatorios_RelatorioAtivosRealizados : System.Web.UI.Page
                 string error = ex.Message;
             }
         }
-
         return hoje;
     }
 
@@ -219,8 +215,6 @@ public partial class Relatorios_RelatorioAtivosRealizados : System.Web.UI.Page
                 cnn.Open();
                 cmm.CommandText = "SELECT count(*) as Ativos  FROM [hspmCall].[dbo].[vw_relatorio_ativos]";
 
-
-
                 SqlDataReader dr1 = cmm.ExecuteReader();
                 if (dr1.Read())
                 {
@@ -232,7 +226,6 @@ public partial class Relatorios_RelatorioAtivosRealizados : System.Web.UI.Page
                 string error = ex.Message;
             }
         }
-
         return total;
     }
 
@@ -260,8 +253,6 @@ public partial class Relatorios_RelatorioAtivosRealizados : System.Web.UI.Page
             {
                 string error = ex.Message;
             }
-
-
         }
         return dt;
     }
@@ -290,8 +281,6 @@ public partial class Relatorios_RelatorioAtivosRealizados : System.Web.UI.Page
             {
                 string error = ex.Message;
             }
-
-
         }
         return dt;
     }
@@ -320,8 +309,6 @@ public partial class Relatorios_RelatorioAtivosRealizados : System.Web.UI.Page
             {
                 string error = ex.Message;
             }
-
-
         }
         return dt;
     }
@@ -350,8 +337,6 @@ public partial class Relatorios_RelatorioAtivosRealizados : System.Web.UI.Page
             {
                 string error = ex.Message;
             }
-
-
         }
         return dt;
     }
@@ -380,8 +365,6 @@ public partial class Relatorios_RelatorioAtivosRealizados : System.Web.UI.Page
             {
                 string error = ex.Message;
             }
-
-
         }
         return dt;
     }
@@ -410,8 +393,6 @@ public partial class Relatorios_RelatorioAtivosRealizados : System.Web.UI.Page
             {
                 string error = ex.Message;
             }
-
-           
         }
         return dt;
     }
@@ -440,5 +421,4 @@ public partial class Relatorios_RelatorioAtivosRealizados : System.Web.UI.Page
         Response.Write(strwritter.ToString());
         Response.End();
     }
-
 }

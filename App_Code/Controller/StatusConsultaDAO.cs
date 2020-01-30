@@ -24,6 +24,38 @@ public class StatusConsultaDAO
         //
     }
 
+    public static string getDescricaoStats(int _cod)
+    {
+        string descStatus = "";
+        using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
+        {
+            SqlCommand cmm = cnn.CreateCommand();
+            cmm.CommandText = "SELECT [status]"+
+                              " FROM [hspmCall].[dbo].[status_consulta] "+
+                              " WHERE id_status = " + _cod;
+
+            try
+            {
+                cnn.Open();
+
+                SqlDataReader dr1 = cmm.ExecuteReader();
+
+                if (dr1.Read())
+                {
+                    descStatus = dr1.GetString(0);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+            }
+
+        }
+
+        return descStatus;
+    }
+
     public static List<StatusConsulta> listaStatusConsulta()
     {
         var lista = new List<StatusConsulta>();
