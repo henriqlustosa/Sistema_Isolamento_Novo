@@ -142,6 +142,7 @@ public class ConsultasDAO
                               ",[data_ligacao]" +
                               ",[stat_cancelar]" +
                               ",[status]" +
+                              ",[usuario]" +
                               " FROM [vw_cancelar_consultas] " +
                               " WHERE stat_cancelar = 0 " +
                               " AND status = " + _status;
@@ -164,6 +165,7 @@ public class ConsultasDAO
                     consulta.Status = dr1.GetString(7);
                     consulta.Observacao = dr1.GetString(8);
                     consulta.Data_Contato = dr1.GetDateTime(9);
+                    consulta.Usuario_Contato = dr1.GetString(12);
 
                     lista.Add(consulta);
                 }
@@ -198,6 +200,7 @@ public class ConsultasDAO
                                           ",[observacao] " +
                                           ",[data_ligacao] " +
                                           ",[id_cancela] " +
+                                          ",[usuario] " +
                                           "FROM vw_cancelar_consultas " +
                                           " WHERE id_consulta = " + _idConsulta +
                                           " AND desc_status = '" + _status + "'";
@@ -217,7 +220,7 @@ public class ConsultasDAO
                 consulta.Dt_Consulta = dr.GetDateTime(8).ToString();
                 consulta.Codigo_Consulta = dr.GetInt32(9);
                 consulta.Status = dr.GetString(10);
-                consulta.Observacao = dr.GetString(11);
+                consulta.Observacao = dr.GetString(11) + " Funcionário que fez contato: " + dr.GetString(14);
                 consulta.Data_Contato = dr.GetDateTime(12);
                 consulta.id_cancela = dr.GetInt32(13);
             }

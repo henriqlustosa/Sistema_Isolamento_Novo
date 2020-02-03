@@ -52,10 +52,11 @@
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
                      <asp:BoundField DataField="Status" HeaderText="Status da ligacao" SortExpression="Status"
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />   
-                        
-                        
                     <asp:BoundField DataField="Observacao" HeaderText="Observacao" SortExpression="Observacao"
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
+                    <asp:BoundField DataField="Usuario_Contato" HeaderText="Contato" SortExpression="Usuario_Contato"
+                        ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
+                        
                     
                     <asp:TemplateField HeaderStyle-CssClass="sorting_disabled">
                         <ItemTemplate>
