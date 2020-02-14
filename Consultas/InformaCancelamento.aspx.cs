@@ -53,8 +53,6 @@ public partial class Consultas_InformaCancelamento : System.Web.UI.Page
         consulta.Usuario_Contato = System.Web.HttpContext.Current.User.Identity.Name;
 
         string mensagem = ConsultasRemarcarDAO.GravaInformacaoConCancelada(consulta.id_cancela, consulta.DescricaoRemarcar, consulta.Usuario_Contato);
-        
-        //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + mensagem + "');", true);
 
         ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + mensagem + "');window.location = 'ConsultasRemarcar.aspx';", true);
 

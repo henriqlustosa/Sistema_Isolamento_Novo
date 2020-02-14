@@ -52,10 +52,6 @@
                             <asp:Label ID="lbTel4" runat="server" class="control-label col-md-03" />
                         </div>
                     </div>
-                   
-                   
-                   
-                   
                 </div>
                 
                 <hr />
@@ -77,16 +73,13 @@
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
                     <asp:BoundField DataField="Nome_Profissional" HeaderText="Profissional" SortExpression="Nome_Profissional"
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
-                   <asp:BoundField DataField="Ativo_Status" HeaderText="Ativo" SortExpression="Ativo_Status"
-                        ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
+                   
                     <asp:BoundField DataField="Status" HeaderText="Status Ligação" SortExpression="Status"
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />    
                     <asp:BoundField DataField="Observacao" HeaderText="Observação" SortExpression="Observacao"
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
                         <asp:BoundField DataField="Data_Contato" HeaderText="Data de Contato" SortExpression="Data_Contato"
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
-                    <asp:BoundField DataField="Tentativa" HeaderText="Tentativa" SortExpression="Tentativa"
-                        ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />   
                     <asp:BoundField DataField="Usuario_Contato" HeaderText="Usuario Contato" SortExpression="Usuario_Contato"
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
                     <asp:BoundField DataField="DescricaoRemarcar" HeaderText="Informação Complementar" SortExpression="DescricaoRemarcar"

@@ -30,6 +30,24 @@
             <div class="row">
                 <div class="col-md-12">
                       
+                      <div class="x_panel">
+                        <div class="x_title">
+                            <h3>
+                                Em 13/02/2020</h3>
+                            <div class="clearfix">
+                            </div>
+                        </div>
+                        <div class="x_content">
+                            <blockquote>
+                                <p>
+                                    <i class="fa fa-check green"></i> Módulo Remarcar. Adicionado nome do usuário que fez contato com paciente. Em consultas > Remarcar. 
+                                </p>
+                            </blockquote>
+                            
+                        </div>
+                    </div>  
+                      
+                      
                        <div class="x_panel">
                         <div class="x_title">
                             <h3>
@@ -42,14 +60,14 @@
                                 <p>
                                     <i class="fa fa-check green"></i> Novo módulo Remarcar. As consultas que tiveram o ativo como Cancelar/Remarcar, Cancelar, Falecido, Telefone Inexistente e Pessoa desconhecida entram neste módulo para adição de nova informação. Em consultas > Remarcar. 
                                 </p>
-                               
+                            </blockquote>
+                             <blockquote>
+                                <p>
+                                    <i class="fa fa-check green"></i> Novo módulo Histórico. Pesquisa por Nº de prontuário das consultas carregadas no sistema Call. Em consultas > Histórico. 
+                                </p>
                             </blockquote>
                         </div>
-                    </div>    
-                      
-                      
-                      
-                      
+                    </div>  
                       
                       
                       <div class="x_panel">

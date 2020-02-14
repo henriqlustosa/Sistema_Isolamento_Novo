@@ -12,85 +12,97 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="Server">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
-
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
             <div class="well" style="overflow: auto">
                 <div class="col-md-6">
-                    <asp:DropDownList ID="ddl" runat="server" 
-                        OnSelectedIndexChanged="ddl_SelectedIndexChanged" AutoPostBack="True">
+                    <asp:DropDownList ID="ddl" runat="server" OnSelectedIndexChanged="ddl_SelectedIndexChanged"
+                        AutoPostBack="True">
                     </asp:DropDownList>
                     <asp:TextBox ID="txbData" runat="server"></asp:TextBox>
                 </div>
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
-    
-    
     <asp:Label ID="lbMsg" runat="server" Text=""></asp:Label>
     <div>
-       <input id="1" type="button" onclick="gerarGrafico()" value="Executar" />
-        
+        <input id="1" type="button" onclick="gerarGrafico()" value="Gráfico" />
     </div>
-    
-    
+    <div>
+        <asp:Button ID="Button1" runat="server" Text="Tabela" OnClick="btnListar_Click"  />
+    </div>
     <div class="x_content">
-        <div>
-            <canvas id="myChart" style="height: 50px; width: 150px"></canvas>
+        <div class="col-md-3 col-sm-3 col-xs-12 bg-white">
+            <table class="table table-striped jambo_table bulk_action">
+                    <asp:Repeater ID="rpt" runat="server">
+                        <HeaderTemplate>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Status
+                                    </th>
+                                    <th>
+                                        Quantidade
+                                    </th>
+                                    
+                                </tr>
+                            </thead>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <tr>
+                                <td>
+                                    <%# Eval("descricao")%>
+                                </td>
+                                <td>
+                                    <%# Eval("quantidade")%>
+                                </td>
+                                
+                            </tr>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </table>
         </div>
-        
+       
+       
         <div>
-            <canvas id="myChart2" style="height: 50px; width: 150px"></canvas>
+             <canvas id="myChart" style="height: 50px; width: 150px"></canvas>
         </div>
+                
+       
     </div>
 
     <script type="text/javascript">
+        
+    
         $(document).ready(function() {
             $("#myChart").hide();
-        //var dataChart = GetData(12);
-
         });
 
-
         var ctx = document.getElementById('myChart').getContext('2d');
-        //var tData = GetData(10);
         var myChart = new Chart(ctx, {
-            type: 'line',
+            type: 'horizontalBar',
             data: []
         });
 
-
-       
-        
-        var ctx = document.getElementById('myChart2').getContext('2d');
-        //var tData = GetData(10);
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: JSON.parse(GetData(JSON.stringify('22/10/2019')))
-        });
-        
         function gerarGrafico() {
-            
-           var dia = document.getElementById('<%=txbData.ClientID %>');
-
-           //alert("Valor: " + JSON.stringify(dia.value));
-           updateChart(JSON.stringify(dia.value))
+            var dia = document.getElementById('<%=txbData.ClientID %>');
+            updateChart(dia.value)
         }
 
         function updateChart(data) {
             $("#myChart").show();
-            myChart.data = JSON.parse(GetData(data));
+            myChart.data = JSON.parse(GetData(JSON.stringify(data)));
             myChart.update();
         };
-        
+
         function GetData(data) {
             var d = data;
-            
+
             var result = null;
             $.ajax({
                 async: false
-                , url: '<%= ResolveUrl("~/publico/webservice.asmx/ChamadasDia") %>'
-                , data: '{data : '+ d +'}'
+                , url: '<%= ResolveUrl("~/publico/webservice.asmx/QuantidadeAtivosStatus") %>'
+                , data: '{mes : 01, ano: 2020}'
                 , type: 'POST'
                 , contentType: 'application/json; charset=utf-8'
                 , dataType: 'json'
@@ -103,7 +115,9 @@
             });
             return result;
         }
+        
+        
 
-           
     </script>
+
 </asp:Content>

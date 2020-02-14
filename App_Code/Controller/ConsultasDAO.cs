@@ -54,9 +54,6 @@ public class ConsultasDAO
             }
 
         }
-
-
-
         return informacao;
     }
 
@@ -67,8 +64,9 @@ public class ConsultasDAO
         using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
         {
             SqlCommand cmm = cnn.CreateCommand();
+           
 
-            cmm.CommandText = "SELECT [id_consulta]" +
+            string sqlConsulta = "SELECT [id_consulta]" +
                               ",[equipe]" +
                               ",[dt_consulta]" +
                               ",[codigo_consulta]" +
@@ -77,10 +75,14 @@ public class ConsultasDAO
                               ",[profissional]" +
                               ",[ativo]" +
                               " FROM [consulta] " +
-                              " WHERE  [prontuario] = " + _prontuario + 
+                              " WHERE  [prontuario] = " + _prontuario +
+                              " AND ativo = 0" +
                               " ORDER BY dt_consulta DESC";
+
+            cmm.CommandText = sqlConsulta;
+            
             try
-            {
+            {  
                 cnn.Open();
                 SqlDataReader dr1 = cmm.ExecuteReader();
 
@@ -88,7 +90,6 @@ public class ConsultasDAO
                 while (dr1.Read())
                 {
                     ConsultasRemarcar consulta = new ConsultasRemarcar();
-
                     consulta.Id_Consulta = dr1.GetInt32(0);
                     consulta.Equipe = dr1.GetString(1);
                     consulta.Dt_Consulta = dr1.GetDateTime(2).ToString();
@@ -97,19 +98,55 @@ public class ConsultasDAO
                     consulta.Equipe = dr1.GetString(5);
                     consulta.Nome_Profissional = dr1.GetString(6);
                     consulta.Ativo_Status = dr1.GetBoolean(7);
-                    if (consulta.Ativo_Status == true)
-                    {
-                        Ativo_Ligacao ativo = new Ativo_Ligacao();
-                        ativo = AtivoDAO.getAtivo(dr1.GetInt32(0));
-                        consulta.Status = StatusConsultaDAO.getDescricaoStats(Convert.ToInt32(ativo.Status));
-                        consulta.Observacao = ativo.Observacao;
-                        consulta.Data_Contato = ativo.Data_Contato;
-                        consulta.Tentativa = ativo.Tentativa;
-                        consulta.Usuario_Contato = ativo.Usuario_Contato;
-                        consulta.DescricaoRemarcar = InformacaoConCancelada(dr1.GetInt32(0));
-                    }
-                   
                     lista.Add(consulta);
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+            }
+        }
+
+        using (SqlConnection cnn1 = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
+        {
+            SqlCommand cmm1 = cnn1.CreateCommand();
+            string sqlAtivo_consulta = "SELECT  [id_consulta]" +
+                                        "  ,[equipe]" +
+                                        "  ,[dt_consulta]" +
+                                        "  ,[codigo_consulta]" +
+                                        "  ,[grade]" +
+                                        "  ,[equipe]" +
+                                        "  ,[profissional]" +
+                                        "  ,[status]" +
+                                        "  ,[observacao]" +
+                                        "  ,[data_ligacao]" +
+                                        "  ,[usuario]" +
+                                        " FROM [hspmCall].[dbo].[vw_relatorio_ativos]" +
+                                        " WHERE  [prontuario] = " + _prontuario + 
+                                        " ORDER BY data_ligacao desc";
+            cmm1.CommandText = sqlAtivo_consulta;
+
+            try
+            {
+                cnn1.Open();
+                SqlDataReader dr2 = cmm1.ExecuteReader();
+                
+                while (dr2.Read())
+                {
+                    ConsultasRemarcar consulta1 = new ConsultasRemarcar();
+                    consulta1.Id_Consulta = dr2.GetInt32(0);
+                    consulta1.Equipe = dr2.GetString(1);
+                    consulta1.Dt_Consulta = dr2.GetDateTime(2).ToString();
+                    consulta1.Codigo_Consulta = dr2.GetInt32(3);
+                    consulta1.Grade = dr2.GetInt32(4);
+                    consulta1.Equipe = dr2.GetString(5);
+                    consulta1.Nome_Profissional = dr2.GetString(6);
+                    consulta1.Status = dr2.GetString(7);
+                    consulta1.Observacao = dr2.GetString(8);
+                    consulta1.Data_Contato = dr2.GetDateTime(9);
+                    consulta1.Usuario_Contato = dr2.GetString(10);
+                    consulta1.DescricaoRemarcar = InformacaoConCancelada(dr2.GetInt32(0));
+                    lista.Add(consulta1);
                 }
             }
             catch (Exception ex)
@@ -166,6 +203,7 @@ public class ConsultasDAO
                     consulta.Observacao = dr1.GetString(8);
                     consulta.Data_Contato = dr1.GetDateTime(9);
                     consulta.Usuario_Contato = dr1.GetString(12);
+                    consulta.Ativo_Status = true;
 
                     lista.Add(consulta);
                 }
