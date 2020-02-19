@@ -35,6 +35,18 @@
                 </div>
             </div>
             <div id="graficos">
+            
+               <!-- top tiles -->
+                <div class="row top_tiles">
+              <div class="animated flipInY col-lg-4 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                  <div class="icon"><i class="fa fa-phone"></i></div>
+                  <div id="qtdtotal" class="count"></div>
+                  <h3>Tentativas de Ligações</h3>
+                </div>
+              </div>
+              </div>
+            
                 <div class="row">
                     <div class="col-md-6 col-sm-12 col-xs-12">
                         <div class="x_panel">
@@ -57,6 +69,7 @@
                             <div class="x_title">
                                 <h2>
                                     Quantitativo Status de Ativos</h2>
+                                     
                                 <div class="clearfix">
                                     <table class="table">
                                         <thead class="thead-dark">
@@ -203,10 +216,17 @@
                                     data.forEach(function(dt) {
                                         $("#tdata").append("<tr>" +
                                         "<td>" + dt.descricao + "</td>" +
-                                        "<td>" + dt.quantidade + "</td>" +
+                                        "<td class='valor-calculado'>" + dt.quantidade + "</td>" +
                                         "<td>" + dt.porcentagem + "</td>"
                                         + "</tr>"
                                         );
+
+                                            var valorCalculado = 0;
+
+                                            $(".valor-calculado").each(function() {
+                                                valorCalculado += parseInt($(this).text());
+                                            });
+                                            $("#qtdtotal").text(valorCalculado);
                                     });
 
                                 }
