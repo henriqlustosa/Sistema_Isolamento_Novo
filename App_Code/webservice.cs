@@ -33,11 +33,19 @@ public class webservice : System.Web.Services.WebService
         {
             SqlCommand cmm = cnn.CreateCommand();
 
-            cmm.CommandText = "SELECT COUNT(status_consulta.status) AS qtd_status, status_consulta.status " +
-                                " FROM hspmCall.dbo.ativo_ligacao INNER JOIN hspmCall.dbo.status_consulta ON hspmCall.dbo.ativo_ligacao.status = status_consulta.id_status " +
-                                " WHERE MONTH(data_ligacao) = " + mes + " and YEAR(data_ligacao) = " + ano +
-                                " GROUP BY status_consulta.status " +
-                                " ORDER BY qtd_status DESC";
+            //cmm.CommandText = "SELECT COUNT(status_consulta.status) AS qtd_status, status_consulta.status " +
+            //                    " FROM hspmCall.dbo.ativo_ligacao INNER JOIN hspmCall.dbo.status_consulta ON hspmCall.dbo.ativo_ligacao.status = status_consulta.id_status " +
+            //                    " WHERE MONTH(data_ligacao) = " + mes + " and YEAR(data_ligacao) = " + ano +
+            //                    " GROUP BY status_consulta.status " +
+            //                    " ORDER BY qtd_status DESC";
+
+            cmm.CommandText = "SELECT COUNT(status_consulta.status) AS qtd_status, status_consulta.status, " +
+                                "cast((count(status_consulta.status)*100.0)/(select COUNT(*) FROM hspmCall.dbo.ativo_ligacao INNER JOIN hspmCall.dbo.status_consulta ON hspmCall.dbo.ativo_ligacao.status = status_consulta.id_status " +
+                                "WHERE MONTH(data_ligacao) = " + mes + " and YEAR(data_ligacao) = " + ano + ")as decimal(5,2)) as porcentagem " +
+                                "FROM hspmCall.dbo.ativo_ligacao INNER JOIN hspmCall.dbo.status_consulta ON hspmCall.dbo.ativo_ligacao.status = status_consulta.id_status " +
+                                "WHERE MONTH(data_ligacao) = " + mes + " and YEAR(data_ligacao) = " + ano + 
+                                "GROUP BY status_consulta.status " +
+                                "ORDER BY qtd_status DESC ";
             try
             {
                 cnn.Open();
@@ -50,6 +58,7 @@ public class webservice : System.Web.Services.WebService
 
                     call.quantidade = dr1.GetInt32(0);
                     call.descricao = dr1.GetString(1);
+                    call.porcentagem = Convert.ToString(dr1.GetDecimal(2)) + "%";
 
 
                     dados.Add(call);

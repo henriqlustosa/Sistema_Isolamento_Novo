@@ -17,4 +17,5 @@ public class CallStatus
 {
 	public int quantidade { get; set; }
     public string descricao { get; set; }
+    public string porcentagem { get; set; }
 }

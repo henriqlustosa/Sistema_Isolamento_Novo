@@ -26,10 +26,10 @@
                         <asp:RequiredFieldValidator ID="RequiredValidator" runat="server" ControlToValidate="txbData"
                             ForeColor="red" Display="Static" ErrorMessage="Required" /><br />
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <input runat="server" type="button" onclick="gerarGrafico()" value="Gráfico" class="btn btn-success" />
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <input id="Button1" runat="server" type="button" value="Limpar" onclick="reloadPage()" class="btn btn-primary" />
                     </div>
                 </div>
@@ -66,6 +66,9 @@
                                                 </th>
                                                 <th>
                                                     Quantidade
+                                                </th>
+                                                <th>
+                                                    Porcentagem
                                                 </th>
                                             </tr>
                                         </thead>
@@ -200,7 +203,8 @@
                                     data.forEach(function(dt) {
                                         $("#tdata").append("<tr>" +
                                         "<td>" + dt.descricao + "</td>" +
-                                        "<td>" + dt.quantidade + "</td>"
+                                        "<td>" + dt.quantidade + "</td>" +
+                                        "<td>" + dt.porcentagem + "</td>"
                                         + "</tr>"
                                         );
                                     });
