@@ -19,6 +19,7 @@
 
     <siteMapNode url="" title="Relatórios" roles="Administradores" description="Páginas relácionadas a informações relatórios" >
       <siteMapNode url="~/Relatorios/RelatorioAtivosRealizados.aspx" title="Ativos Realizados" description="Relatório de total ativos relizados" />
+      <siteMapNode url="~/Grafico/dadosMes.aspx" title="Gráficos de Ativos" description="Gráficos de ativos realizados por mês" />
     </siteMapNode>
 
 

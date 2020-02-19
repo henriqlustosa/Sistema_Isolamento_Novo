@@ -19,17 +19,17 @@
                     <asp:DropDownList ID="ddl" runat="server" OnSelectedIndexChanged="ddl_SelectedIndexChanged"
                         AutoPostBack="True">
                     </asp:DropDownList>
-                    <asp:TextBox ID="txbData" runat="server"></asp:TextBox>
+                    
+                    <asp:TextBox ID="txbData" runat="server" class="form-control" data-inputmask="'mask': '99/9999'"></asp:TextBox>
+                    
                 </div>
             </div>
+         
         </ContentTemplate>
     </asp:UpdatePanel>
     <asp:Label ID="lbMsg" runat="server" Text=""></asp:Label>
     <div>
         <input id="1" type="button" onclick="gerarGrafico()" value="Gráfico" />
-    </div>
-    <div>
-        <asp:Button ID="Button1" runat="server" Text="Tabela" OnClick="btnListar_Click"  />
     </div>
     <div class="x_content">
         <div class="col-md-3 col-sm-3 col-xs-12 bg-white">
@@ -71,11 +71,15 @@
        
     </div>
 
+     
+
+
     <script type="text/javascript">
+
         
-    
         $(document).ready(function() {
             $("#myChart").hide();
+            
         });
 
         var ctx = document.getElementById('myChart').getContext('2d');
@@ -116,8 +120,6 @@
             return result;
         }
         
-        
-
     </script>
 
 </asp:Content>

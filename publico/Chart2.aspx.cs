@@ -26,7 +26,7 @@ public partial class publico_Chart2 : System.Web.UI.Page
             ddl.DataValueField = "DayValue";
             ddl.DataBind();
 
-            txbData.Text = DateTime.Today.ToShortDateString();
+            //txbData.Text = DateTime.Today.ToShortDateString();
         }
     }
 

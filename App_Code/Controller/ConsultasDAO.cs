@@ -203,7 +203,6 @@ public class ConsultasDAO
                     consulta.Observacao = dr1.GetString(8);
                     consulta.Data_Contato = dr1.GetDateTime(9);
                     consulta.Usuario_Contato = dr1.GetString(12);
-                    consulta.Ativo_Status = true;
 
                     lista.Add(consulta);
                 }

@@ -29,6 +29,48 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
+               
+                      <div class="x_panel">
+                        <div class="x_title">
+                            <h3>
+                                Em 19/02/2020</h3>
+                            <div class="clearfix">
+                            </div>
+                        </div>
+                        <div class="x_content">
+                            <blockquote>
+                                <p>
+                                    <i class="fa fa-check green"></i> Módulo Relatórios. Adicionado Gráfico Line de Ativos mensal. Em Relatórios > Gráficos de Ativos. 
+                                </p>
+                                <p>
+                                    <i class="fa fa-check green"></i> Módulo Relatórios. Adicionado Quantitativo de Ativos por Status. Em Relatórios > Gráficos de Ativos. 
+                                </p>
+                                <p>
+                                    <i class="fa fa-check green"></i> Módulo Relatórios. Adicionado Gráfico Pie de Ativos por Status. Em Relatórios > Gráficos de Ativos. 
+                                </p>
+                            </blockquote>
+                            
+                        </div>
+                    </div>  
+                      
+                      <div class="x_panel">
+                        <div class="x_title">
+                            <h3>
+                                Em 19/02/2020</h3>
+                            <div class="clearfix">
+                            </div>
+                        </div>
+                        <div class="x_content">
+                            <blockquote>
+                                <p>
+                                    <i class="fa fa-check green"></i> Módulo Relatórios. Adicionado Gráfico de Ativos por Status. Em Relatórios > Gráficos Mês. 
+                                </p>
+                            </blockquote>
+                            
+                        </div>
+                    </div>  
+                      
+                      
                       
                       <div class="x_panel">
                         <div class="x_title">

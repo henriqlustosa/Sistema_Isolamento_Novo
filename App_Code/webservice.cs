@@ -22,8 +22,59 @@ public class webservice : System.Web.Services.WebService
 
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     [WebMethod()]
-    public string QuantidadeAtivosStatus(int mes, int ano)
+    public string QuantidadeAtivosStatus(string mesAno)
     {
+        int mes = Convert.ToInt32(mesAno.Substring(0, 2));
+        int ano = Convert.ToInt32(mesAno.Substring(3, 4));
+        var dados = new List<CallStatus>();
+
+
+        using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
+        {
+            SqlCommand cmm = cnn.CreateCommand();
+
+            cmm.CommandText = "SELECT COUNT(status_consulta.status) AS qtd_status, status_consulta.status " +
+                                " FROM hspmCall.dbo.ativo_ligacao INNER JOIN hspmCall.dbo.status_consulta ON hspmCall.dbo.ativo_ligacao.status = status_consulta.id_status " +
+                                " WHERE MONTH(data_ligacao) = " + mes + " and YEAR(data_ligacao) = " + ano +
+                                " GROUP BY status_consulta.status " +
+                                " ORDER BY qtd_status DESC";
+            try
+            {
+                cnn.Open();
+                SqlDataReader dr1 = cmm.ExecuteReader();
+
+                //char[] ponto = { '.', ' ' };
+                while (dr1.Read())
+                {
+                    CallStatus call = new CallStatus();
+
+                    call.quantidade = dr1.GetInt32(0);
+                    call.descricao = dr1.GetString(1);
+
+
+                    dados.Add(call);
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+            }
+        }
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        return js.Serialize(dados);
+    }
+
+
+
+
+
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    [WebMethod()]
+    public string QuantidadeAtivosStatusGrafico(string mesAno)
+    {
+        int mes = Convert.ToInt32(mesAno.Substring(0,2));
+        int ano = Convert.ToInt32(mesAno.Substring(3,4));
+
         var dados = new List<CallStatus>();
 
         var quantidade1 = new List<int>();
@@ -413,6 +464,75 @@ public class webservice : System.Web.Services.WebService
         _dataSet.Add(new Datasets()
         {
             label = "Ativos Este Mês",
+            data = total.ToArray(),
+            backgroundColor = new string[] { "rgba(38, 185, 154, 0.31)" },
+            borderColor = new string[] { "rgba(38, 185, 154, 0.7)" },
+
+            pointBorderColor = new string[] { "rgba(38, 185, 154, 0.7)" },
+            pointBackgroundColor = new string[] { "rgba(38, 185, 154, 0.7)" },
+            pointHoverBackgroundColor = new string[] { "#fff" },
+            pointHoverBorderColor = new string[] { "rgba(220,220,220,1)" },
+            pointBorderWidth = "1",
+            borderWidth = "1"
+        });
+
+        _chart.datasets = _dataSet;
+
+        //O JavaScriptSerializer vai fazer o web service retornar JSON
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        return js.Serialize(_chart);
+    }
+
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    [WebMethod()]
+    public string ChamadasMes(string mesAno)
+    {
+        int mes = Convert.ToInt32(mesAno.Substring(0, 2));
+        int ano = Convert.ToInt32(mesAno.Substring(3, 4));
+
+        var horas = new List<string>();
+        var total = new List<int>();
+
+        using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
+        {
+            SqlCommand cmm = cnn.CreateCommand();
+
+            cmm.CommandText = "SELECT DATEPART(DAY, data_ligacao) AS [Day], COALESCE(COUNT(id_consulta), 0) AS [Total Calls] " +
+                            " FROM [hspmCall].[dbo].[ativo_ligacao] " +
+                            " WHERE MONTH(data_ligacao) = " + mes + " and YEAR(data_ligacao) = " + ano +
+                            " GROUP BY DATEPART(DAY, data_ligacao) " +
+                            " ORDER BY DATEPART(DAY, data_ligacao)";
+            try
+            {
+                cnn.Open();
+                SqlDataReader dr1 = cmm.ExecuteReader();
+
+                while (dr1.Read())
+                {
+                    CallHoras call = new CallHoras();
+                    call.Horadodia = dr1.GetInt32(0);
+                    call.TotalCall = dr1.GetInt32(1);
+
+                    horas.Add(call.Horadodia.ToString());
+                    total.Add(call.TotalCall);
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+            }
+        }
+
+        Chart _chart = new Chart();
+        _chart.labels = horas.ToArray();
+        _chart.datasets = new List<Datasets>();
+
+        List<Datasets> _dataSet = new List<Datasets>();
+        _dataSet.Add(new Datasets()
+        {
+            label = "Evolução de Ligações durante o Mês",
             data = total.ToArray(),
             backgroundColor = new string[] { "rgba(38, 185, 154, 0.31)" },
             borderColor = new string[] { "rgba(38, 185, 154, 0.7)" },
