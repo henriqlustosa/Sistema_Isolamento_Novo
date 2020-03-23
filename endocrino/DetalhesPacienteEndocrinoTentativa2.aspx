@@ -78,11 +78,13 @@
         </div>
       
                 <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False"
-                    DataKeyNames="Id_Ativo" CellPadding="4" ForeColor="#333333" GridLines="None"
+                    DataKeyNames="Id_consulta" CellPadding="4" ForeColor="#333333" GridLines="None"
                     OnRowCommand="grdMain_RowCommand" Width="100%">
                     <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
                     <Columns>
-                        <asp:BoundField DataField="Id_Ativo" HeaderText="CONTATO" SortExpression="Id_Ativo"
+                    <asp:BoundField DataField="Id_ativo" HeaderText="ID ATIVO" SortExpression="Id_ativo"
+                            ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
+                        <asp:BoundField DataField="Id_consulta" HeaderText="ID CONSULTA" SortExpression="Id_consulta"
                             ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
                         <asp:BoundField DataField="Prontuario" HeaderText="PRONTUÁRIO/RH" SortExpression="Prontuario"
                             HeaderStyle-CssClass="visible-lg" ItemStyle-CssClass="visible-lg" />
@@ -130,11 +132,18 @@
                             <div class="modal-body">
                                 <div class="container">
                                     <div class="modal-body">
-                                        <div class="form-group row">
-                                            <label for="txtUserID" class="col-sm-2 col-form-label">
-                                                ID:</label>
+                                    <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">
+                                                ID Ativo:</label>
                                             <div class="col-sm-10">
-                                                <asp:Label ID="txbID" runat="server" Text=""></asp:Label>
+                                                <asp:Label ID="txbIDAtivo" runat="server" Text=""></asp:Label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">
+                                                ID Consulta:</label>
+                                            <div class="col-sm-10">
+                                                <asp:Label ID="txbIDConsulta" runat="server" Text=""></asp:Label>
                                             </div>
                                         </div>
                                         <div class="form-group row">

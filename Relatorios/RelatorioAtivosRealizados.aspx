@@ -32,7 +32,7 @@
     </div>
     <div class="row tile_count">
         <div class="col-md-3 col-xs-12 widget widget_tally_box">
-            <div class="x_panel fixed_height_390">
+            <div class="x_panel fixed_height_490">
                 <div class="x_title">
                     <h2>
                         Hoje</h2>
@@ -62,6 +62,9 @@
                         </div>
                     </div>
                     <div style="text-align: center; overflow: hidden; margin: 10px 5px 0;">
+                        
+                        <canvas id="canvas_hoje_pie" height="400"></canvas>
+                        
                         <canvas id="canvas_hoje" height="200"></canvas>
                     </div>
                 </div>
@@ -214,6 +217,39 @@
         </div>
     </div>
    <script type="text/javascript">
+
+       var ctx = document.getElementById('canvas_hoje_pie').getContext('2d');
+       var d = new Date();
+       var n = d.toLocaleDateString();
+
+       var myChart = new Chart(ctx, {
+           type: 'pie',
+           data: JSON.parse(GetDataDia(JSON.stringify(n)))
+       });
+
+       function GetDataDia(data) {
+           var d = data;
+
+           var result = null;
+           $.ajax({
+               async: false
+                , url: '<%= ResolveUrl("~/Restrito/webservice.asmx/QuantidadeAtivosStatusDiaGrafico") %>'
+                , data: '{data : ' + d + '}'
+                , type: 'POST'
+                , contentType: 'application/json; charset=utf-8'
+                , dataType: 'json'
+                , success: function(data) {
+                    result = data.d;
+                }
+                , error: function(xhr, er) {
+                    $("#lbMsg").html('<p> Erro ' + xhr.staus + ' - ' + xhr.statusText + ' - <br />Tipo de erro:  ' + er + '</p>');
+                }
+           });
+           return result;
+       }
+   
+   
+   
        var ctx = document.getElementById('canvas_hoje').getContext('2d');
        var d = new Date();
        var n = d.toLocaleDateString();

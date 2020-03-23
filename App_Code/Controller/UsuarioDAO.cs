@@ -53,6 +53,14 @@ public class UsuarioDAO
                     usuario.Cargo = dr1.GetString(4);
                     usuario.Uimage = dr1.GetString(5);
                 }
+                else
+                {
+                    usuario.UserLogin = "";
+                    usuario.Nome_Completo = "";
+                    usuario.Setor = "";
+                    usuario.Cargo = "";
+                    usuario.Uimage = "~/UserImages/User.png";
+                }
             }
             catch (Exception ex)
             {

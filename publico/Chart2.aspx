@@ -75,7 +75,6 @@
 
 
     <script type="text/javascript">
-
         
         $(document).ready(function() {
             $("#myChart").hide();
@@ -119,7 +118,6 @@
             });
             return result;
         }
-        
     </script>
 
 </asp:Content>

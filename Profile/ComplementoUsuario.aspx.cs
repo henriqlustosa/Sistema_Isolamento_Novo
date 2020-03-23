@@ -59,7 +59,7 @@ public partial class publico_ComplementoUsuario : System.Web.UI.Page
         }
 
 
-        if (UsuarioDAO.getUsuario(txbLogin.Text).UserLogin == null)
+        if (UsuarioDAO.getUsuario(txbLogin.Text).UserLogin == null || UsuarioDAO.getUsuario(txbLogin.Text).UserLogin == "")
         {
             UsuarioDAO.CadastroComplementar(usuario.UserLogin, usuario.Nome_Completo, usuario.Setor, usuario.Cargo, _Uimage);
         }

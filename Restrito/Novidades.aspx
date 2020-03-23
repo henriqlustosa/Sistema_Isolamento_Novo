@@ -29,6 +29,61 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
+                
+                     <div class="x_panel">
+                        <div class="x_title">
+                            <h3>
+                                Em 23/03/2020</h3>
+                            <div class="clearfix">
+                            </div>
+                        </div>
+                        <div class="x_content">
+                            <blockquote>
+                                <p>
+                                    <i class="fa fa-check green"></i> Módulo Relatórios. Gráfico PIE de ativos realizados no dia por status. Em Ativos Realizados. 
+                                </p>
+                            </blockquote>
+                            
+                        </div>
+                    </div>  
+                
+                
+                       <div class="x_panel">
+                        <div class="x_title">
+                            <h3>
+                                Em 28/02/2020</h3>
+                            <div class="clearfix">
+                            </div>
+                        </div>
+                        <div class="x_content">
+                            <blockquote>
+                                <p>
+                                    <i class="fa fa-check green"></i> Módulo Relatórios. Adicionado Gráficos de ativos realizados no mês por usuário Individual. Em Gráficos > Ativos Individual. 
+                                </p>
+                            </blockquote>
+                            
+                        </div>
+                    </div>  
+               
+                        
+               
+                       <div class="x_panel">
+                        <div class="x_title">
+                            <h3>
+                                Em 27/02/2020</h3>
+                            <div class="clearfix">
+                            </div>
+                        </div>
+                        <div class="x_content">
+                            <blockquote>
+                                <p>
+                                    <i class="fa fa-check green"></i> Módulo Relatórios. Adicionado Gráfico barra de Ativos mensal por usuários. Em Relatórios > Gráficos de Ativos Usuário. 
+                                </p>
+                            </blockquote>
+                            
+                        </div>
+                    </div>  
+               
                
                       <div class="x_panel">
                         <div class="x_title">
@@ -52,26 +107,7 @@
                             
                         </div>
                     </div>  
-                      
-                      <div class="x_panel">
-                        <div class="x_title">
-                            <h3>
-                                Em 19/02/2020</h3>
-                            <div class="clearfix">
-                            </div>
-                        </div>
-                        <div class="x_content">
-                            <blockquote>
-                                <p>
-                                    <i class="fa fa-check green"></i> Módulo Relatórios. Adicionado Gráfico de Ativos por Status. Em Relatórios > Gráficos Mês. 
-                                </p>
-                            </blockquote>
-                            
-                        </div>
-                    </div>  
-                      
-                      
-                      
+                                          
                       <div class="x_panel">
                         <div class="x_title">
                             <h3>

@@ -24,8 +24,7 @@ public class ConsultasRemarcarDAO
     public static String GravaInformacaoConCancelada(int _id_cancelada, string _informacao, string _usuario)
     {
         string mensagem = "";
-
-
+        
         using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
         {
             SqlCommand cmm = new SqlCommand();
@@ -36,13 +35,14 @@ public class ConsultasRemarcarDAO
             try
             {
                 cmm.CommandText = "Insert into info_con_cancelada " +
-                    "(descricao_con_cancelada, id_consultas_cancelar, usuario)" +
-                    "values (@informacao, @id_cancelada, @usuario)";
+                    "(descricao_con_cancelada, id_consultas_cancelar, usuario, data_informacao)" +
+                    "values (@informacao, @id_cancelada, @usuario, @data_informacao)";
 
 
                 cmm.Parameters.Add("@informacao", SqlDbType.VarChar).Value = _informacao.ToUpper();
                 cmm.Parameters.Add("@id_cancelada", SqlDbType.Int).Value = _id_cancelada;
                 cmm.Parameters.Add("@usuario", SqlDbType.VarChar).Value = _usuario.ToUpper();
+                cmm.Parameters.Add("@data_informacao", SqlDbType.DateTime).Value = DateTime.Now;
                 cmm.ExecuteNonQuery();
 
                 mt.Commit();

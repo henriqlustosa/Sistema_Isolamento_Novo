@@ -48,6 +48,7 @@
               </div>
             
                 <div class="row">
+                    <!-- Gráfico Pie -->
                     <div class="col-md-6 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
@@ -63,7 +64,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- novo grafico -->
+                    <!-- Tabela -->
                     <div class="col-md-6 col-sm-12 col-xs-12">
                         <div class="x_panel tile ">
                             <div class="x_title">
@@ -98,12 +99,12 @@
                     <!-- -->
                 </div>
                 <div class="row">
-                    <!-- novo grafico -->
+                    <!-- Grafico Line -->
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel tile ">
                             <div class="x_title">
                                 <h2>
-                                    Ativos Mensal</h2>
+                                    Ativos Diário</h2>
                                 <div class="clearfix">
                                 </div>
                             </div>

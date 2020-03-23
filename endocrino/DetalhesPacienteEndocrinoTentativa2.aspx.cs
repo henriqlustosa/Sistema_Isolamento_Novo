@@ -58,18 +58,19 @@ public partial class endocrino_DetalhesPacienteEndocrinoTentativa2 : System.Web.
         if (e.CommandName.Equals("editRecord"))
         {
             index = Convert.ToInt32(e.CommandArgument);
-            id_ativo = Convert.ToInt32(GridView1.DataKeys[index].Value.ToString());
+            var _id_consulta = Convert.ToInt32(GridView1.DataKeys[index].Value.ToString());
 
 
             string _realizada = "N";
             var clickedRecord = from consulta in AtivoDAO.ListaTentativaContatoPaciente(Convert.ToInt32(lbProntuario.Text), 1, _realizada)
-                                where consulta.Id_Ativo == id_ativo
+                                where consulta.Id_Consulta == _id_consulta
                                 select consulta;
 
 
             foreach (var d in clickedRecord.ToList())
             {
-                txbID.Text = d.Id_Ativo.ToString();
+                txbIDAtivo.Text = d.Id_Ativo.ToString();
+                txbIDConsulta.Text = d.Id_Consulta.ToString();
                 txbdtConsulta.Text = d.Dt_Consulta.ToString();
                 txbEquipe.Text = d.Equipe;
                 txbProfissional.Text = d.Nome_Profissional;
@@ -103,10 +104,10 @@ public partial class endocrino_DetalhesPacienteEndocrinoTentativa2 : System.Web.
         ativo.Prontuario = Convert.ToInt32(lbProntuario.Text);
         ativo.Observacao = txbObservacao.Text.ToUpper();
         ativo.Usuario_Contato = System.Web.HttpContext.Current.User.Identity.Name;
-        ativo.Id_Consulta = Convert.ToInt32(txbID.Text);
+        ativo.Id_Consulta = Convert.ToInt32(txbIDConsulta.Text);
         int _status = Convert.ToInt32(ddlStatus.SelectedValue);
         
-        id_ativo = Convert.ToInt32(txbID.Text);
+        id_ativo = Convert.ToInt32(txbIDAtivo.Text);
 
         int tentativa = 2;
 

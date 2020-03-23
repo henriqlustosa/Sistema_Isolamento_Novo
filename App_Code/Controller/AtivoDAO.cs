@@ -24,6 +24,48 @@ public class AtivoDAO
 		//
 	}
 
+    public static List<Ativo_Ligacao> getAtivosRecentAtividadesUsuario(string usuario)
+    {
+        var listaAtividades = new List<Ativo_Ligacao>();
+       
+
+        using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
+        {
+            SqlCommand cmm = cnn.CreateCommand();
+            cmm.CommandText = "SELECT TOP 5 "+
+                                 " [status]" +
+                                 " ,[observacao]" +
+                                 " ,[data_ligacao]" +
+                             " FROM [hspmCall].[dbo].[ativo_ligacao]" +
+                             " WHERE usuario = '"+ usuario +"'" +
+                             " ORDER BY data_ligacao DESC";
+
+            try
+            {
+                cnn.Open();
+
+                SqlDataReader dr1 = cmm.ExecuteReader();
+
+                while (dr1.Read())
+                {
+                    Ativo_Ligacao ativo = new Ativo_Ligacao();
+                    ativo.Status = StatusConsultaDAO.getDescricaoStats(dr1.GetInt32(0));
+                    ativo.Observacao = dr1.GetString(1);
+                    ativo.Data_Contato = dr1.GetDateTime(2);
+                    listaAtividades.Add(ativo);
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+            }
+
+        }
+
+        return listaAtividades;
+    }
+
+
     public static Ativo_Ligacao getAtivo(int _id_consulta)
     {
         Ativo_Ligacao ativo = new Ativo_Ligacao();
@@ -115,6 +157,7 @@ public class AtivoDAO
     public static List<Ativo> ListaConsultasPaciente(int _prontuario)
     {
         var lista = new List<Ativo>();
+
         using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
         {
             SqlCommand cmm = cnn.CreateCommand();
@@ -250,6 +293,7 @@ public class AtivoDAO
                 {
                     _realizado = "N";
                 }
+
                 cmm.CommandText = "Insert into ativo_ligacao (id_consulta, status, observacao, data_ligacao, tentativa,usuario, realizado)" +
                        "values (@id_consulta,@status,@observacao,@data_ligacao, @tentativa, @usuario, @realizado)";
 
@@ -475,7 +519,7 @@ public class AtivoDAO
                               "c.dt_consulta, c.grade, c.equipe, c.profissional, c.codigo_consulta, c.ativo, " +
                               "p.telefone1, p.telefone2, p.telefone3, p.telefone4 " +
                               "FROM consulta c, paciente_Mailling p " +
-                              " WHERE c.prontuario = p.prontuario AND ativo = 0 AND dt_consulta <= GETDATE() + 20 " +
+                              " WHERE c.prontuario = p.prontuario AND ativo = 0 "+ //AND dt_consulta <= GETDATE() + 20 " +
                               " AND c.equipe LIKE 'ENDOCRINO%' " +
                               " ORDER BY id_consulta;";
             }
