@@ -30,10 +30,28 @@
             <div class="row">
                 <div class="col-md-12">
                 
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h3>
+                                Em 24/03/2020</h3>
+                            <div class="clearfix">
+                            </div>
+                        </div>
+                        <div class="x_content">
+                            <blockquote>
+                                <p>
+                                    <i class="fa fa-check green"></i> Módulo Consultas. Campo de busca na lista de consultas canceladas e remarcadas. Em Consultas > Remarcar. 
+                                </p>
+                            </blockquote>
+                            
+                        </div>
+                    </div>  
+                
+                
                      <div class="x_panel">
                         <div class="x_title">
                             <h3>
-                                Em 23/03/2020</h3>
+                                Em 24/03/2020</h3>
                             <div class="clearfix">
                             </div>
                         </div>

@@ -2,12 +2,12 @@
     CodeFile="ConsultasRemarcar.aspx.cs" Inherits="publico_ConsultasRemarcar" Title="Call HSPM" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="Server">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>
             <h3>
                 <asp:Label ID="lbTitulo" runat="server" Text="CONSULTAS PARA CANCELAR/REMARCAR"></asp:Label></h3>
             <div class="x_content">
@@ -25,16 +25,14 @@
                         </asp:SqlDataSource>
                         
                     </div>
-                    <div class="col-md-4 col-sm-6 form-group">
-                        <asp:Button ID="btnListar" class="btn btn-primary" runat="server" Text="Listar" style="margin-top: 27px" OnClick="btnListar_Click" />
-                    </div>
+                   
                 </div>
             </div>
            
            <asp:GridView ID="GridView1" runat="server"  AutoGenerateColumns="False"
                  DataKeyNames="Id_consulta" OnRowCommand="grdMain_RowCommand"
-                CellPadding="4" ForeColor="#333333" GridLines="None" Width="100%">
-                <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                CellPadding="4" ForeColor="#333333" GridLines="Horizontal" BorderColor="#e0ddd1" Width="100%" OnPreRender="GridView1_PreRender" >
+                <RowStyle BackColor="#f7f6f3" ForeColor="#333333" />
                 <Columns>
                     <asp:BoundField DataField="Id_consulta" HeaderText="ID CONSULTA" SortExpression="Id_consulta"
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
@@ -56,7 +54,6 @@
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
                     <asp:BoundField DataField="Usuario_Contato" HeaderText="Contato" SortExpression="Usuario_Contato"
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
-                        
                     
                     <asp:TemplateField HeaderStyle-CssClass="sorting_disabled">
                         <ItemTemplate>
@@ -68,19 +65,37 @@
                             </div>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    
-                    
                 </Columns>
+                
                 <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
                 <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-                <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                <SelectedRowStyle BackColor="#ffffff" Font-Bold="True" ForeColor="#333333" />
                 <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
                 <EditRowStyle BackColor="#999999" />
-                <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
             </asp:GridView>
-            
-            
-            
-        </ContentTemplate>
-    </asp:UpdatePanel>
+    
+ 
+   
+  <script src='<%= ResolveUrl("~/vendors/jquery/dist/jquery.js") %>' type="text/javascript"></script>
+  
+  <script src='<%= ResolveUrl("https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js") %>' type="text/javascript"></script>
+  
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $.noConflict();
+
+                $('#<%= GridView1.ClientID %>').prepend($("<thead></thead>").append($(this).find("tr:first"))).DataTable({
+                    language: {
+                        search: "<i class='fa fa-search' aria-hidden='true'></i>",
+                        processing: "Processando...",
+                        lengthMenu: "Mostrando _MENU_ registros por páginas",
+                        info: "Mostrando página _PAGE_ de _PAGES_",
+                        infoEmpty: "Nenhum registro encontrado",
+                        infoFiltered: "(filtrado de _MAX_ registros no total)"
+                    }
+                });
+
+            });
+         </script>
 </asp:Content>
